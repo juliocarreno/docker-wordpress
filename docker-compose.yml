@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  php:
+    image: juliocarreno/wordpress
+    volumes:
+      - ./wordpress-data:/var/www/html
+      - ./app.conf:/etc/apache2/sites-enabled/001-app.conf
+    ports:
+      - 80:80    
+
+  mysql:
+    image: mysql:5.7    
+    volumes: 
+      - mysql-data:/var/lib/mysql
+    restart: always    
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+      MYSQL_DATABASE: wordpress
+
+volumes:
+  mysql-data:
